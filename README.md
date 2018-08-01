@@ -1,5 +1,7 @@
 ### Usage
 
+First run, `npm install`
+
 This script requires two args: inputFilename and an outputFilename.
 
 Ex.
