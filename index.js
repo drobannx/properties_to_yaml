@@ -13,12 +13,14 @@ const YAML_OPTIONS = {
   }
 };
 
-const LINE_SPLIT_LIMIT = 1;
+const LINE_SPLIT_LIMIT = 2;
+const KEY_VALUE_SEPARATOR = "=";
 
 function convertLineToObject(line, yamlResult) {
   const result = Object.assign({}, yamlResult);
-
-  const [key, value] = line.split("=", LINE_SPLIT_LIMIT);
+  const separatorIndex = line.indexOf(KEY_VALUE_SEPARATOR);
+  const key = line.substring(0, separatorIndex);
+  const value = line.substring(separatorIndex + 1);
   const keyParts = key.split(".");
 
   objectPath.set(result, keyParts, value);
