@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 const readline = require("readline");
 const yaml = require("js-yaml");
@@ -11,10 +13,12 @@ const YAML_OPTIONS = {
   }
 };
 
+const LINE_SPLIT_LIMIT = 1;
+
 function convertLineToObject(line, yamlResult) {
   const result = Object.assign({}, yamlResult);
 
-  const [key, value] = line.split("=");
+  const [key, value] = line.split("=", LINE_SPLIT_LIMIT);
   const keyParts = key.split(".");
 
   objectPath.set(result, keyParts, value);
@@ -24,8 +28,8 @@ function convertLineToObject(line, yamlResult) {
 
 function main() {
   if (process.argv.length !== 4) {
-    console.error("You must pass a source file and destination file");
-    exit(1);
+    console.error("ERROR: You must pass a source file and destination file");
+    process.exit(1);
   }
 
   const sourceFile = process.argv[2];
